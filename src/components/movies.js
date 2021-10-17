@@ -1,3 +1,4 @@
+//import React libraries and components
 import React from "react";
 import { MovieItem } from "./movieItem";
 
@@ -6,8 +7,8 @@ export class Movies extends React.Component {
     //start render method
     render() {
         //acquires data from movies using arrow function
-        return this.props.movies.map( (movie)=>{
-            return <MovieItem movie = {movie}></MovieItem>
+        return this.props.movies.map((movie) => {
+            return <MovieItem movie={movie}></MovieItem>
         })
     }//end render method
 }//end Movies class

@@ -1,3 +1,4 @@
+//import React libraries and components
 import './App.css';
 import { Component } from 'react';
 import { Header } from './components/header';
@@ -11,14 +12,16 @@ import { Read } from './components/read';
 import { Create } from './components/create';
 
 
-//class App representing Component class
+//class App representing Component
 class App extends Component {
   //render method needed for class to run
   render() {
+    //returns div tag content and print to screen 
     return (
+      //enables the navigation among views of various components in a React Application
       <Router>
+        {/*div tag with bootstrap navbar*/}
         <div className="App">
-
           <Navbar bg="primary" variant="dark">
             <Navbar.Brand href="#home">Navbar</Navbar.Brand>
             <Nav className="mr-auto">
@@ -29,7 +32,9 @@ class App extends Component {
           </Navbar>
 
           <br />
+          {/*returns only first matching route*/}
           <Switch>
+            {/*create links to different components and implements navigation*/}
             <Route path='/' component={Content} exact />
             <Route path='/read' component={Read} exact />
             <Route path='/create' component={Create} exact />

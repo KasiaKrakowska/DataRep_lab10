@@ -1,3 +1,4 @@
+//imports React libiraries and components
 import React from "react";
 import { Card } from "react-bootstrap";
 
@@ -5,8 +6,10 @@ import { Card } from "react-bootstrap";
 export class MovieItem extends React.Component {
     //start render method
     render() {
+        //returns div tag content and print to screen 
+        //div tag with bootstrap Card - displays JSON data from movie object
         return (
-            <div>
+            < div >
                 <Card>
                     <Card.Header>{this.props.movie.Title}</Card.Header>
                     <Card.Body>

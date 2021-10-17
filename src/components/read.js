@@ -1,10 +1,13 @@
+//import React libraries and components
 import React from "react";
 import { Movies } from "./movies";
 
 //start Read class - export used in order to use component elsewhere
 export class Read extends React.Component {
     //new object used to store property values that belongs to the component
+    //state is used to represent an information about the component's current situation
     state = {
+        //movies object with JSON data
         movies: [
             {
                 "Title": "Avengers: Infinity War",
@@ -31,9 +34,11 @@ export class Read extends React.Component {
     };
     //start render method
     render() {
+        //returns div tag content and print to screen 
         return (
             <div>
                 <h1>This is the Read component with Movies.</h1>
+                {/*embeds movies component in read component*/}
                 <Movies movies={this.state.movies}></Movies>
             </div>
         );
