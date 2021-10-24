@@ -1,6 +1,7 @@
 //import React libraries and components
 import React from "react";
 import { Movies } from "./movies";
+import axios from "axios";
 
 //start Read class - export used in order to use component elsewhere
 export class Read extends React.Component {
@@ -8,30 +9,29 @@ export class Read extends React.Component {
     //state is used to represent an information about the component's current situation
     state = {
         //movies object with JSON data
-        movies: [
-            {
-                "Title": "Avengers: Infinity War",
-                "Year": "2018",
-                "imdbID": "tt4154756",
-                "Type": "movie",
-                "Poster": "https://m.media-amazon.com/images/M/MV5BMjMxNjY2MDU1OV5BMl5BanBnXkFtZTgwNzY1MTUwNTM@._V1_SX300.jpg"
-            },
-            {
-                "Title": "Captain America: Civil War",
-                "Year": "2016",
-                "imdbID": "tt3498820",
-                "Type": "movie",
-                "Poster": "https://m.media-amazon.com/images/M/MV5BMjQ0MTgyNjAxMV5BMl5BanBnXkFtZTgwNjUzMDkyODE@._V1_SX300.jpg"
-            },
-            {
-                "Title": "Charlie Wilson's War",
-                "Year": "2007",
-                "imdbID": "tt0472062",
-                "Type": "movie",
-                "Poster": "https://m.media-amazon.com/images/M/MV5BMTgwMDgwMDc4MF5BMl5BanBnXkFtZTYwOTU3MDM4._V1_SX300.jpg"
-            }
-        ]
-    };
+        movies: []
+    };//end state
+    //Promise
+    //componentDidMount() is invoked immediately after a component is inserted into the tree.
+    //Initialization that requires DOM nodes goes here. 
+    //Instantiate the network request To load data from a remote endpoint,
+    componentDidMount() {//component lifecycle
+        //promise - axios get request to jsonblob URL
+        //library that serves to create HTTP requests that are present externally
+        axios.get('https://jsonblob.com/api/jsonblob/894944504570986496')
+            //fulfilled promise - when everything works it will update State with response from URL
+            .then(
+                (response) => {
+                    this.setState({ movies: response.data.movies })
+                }
+            )
+            //rejected promise - if there is an error it will print to console
+            .catch(
+                (error) => {
+                    console.log(error)
+                }
+            );
+    }//end componentDidMount
     //start render method
     render() {
         //returns div tag content and print to screen 
