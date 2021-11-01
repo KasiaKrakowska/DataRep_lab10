@@ -18,7 +18,8 @@ export class Read extends React.Component {
     componentDidMount() {//component lifecycle
         //promise - axios get request to jsonblob URL
         //library that serves to create HTTP requests that are present externally
-        axios.get('https://jsonblob.com/api/jsonblob/894944504570986496')
+        //data is read from JSON server.js - port 4000
+        axios.get('http://localhost:4000/api/movies')
             //fulfilled promise - when everything works it will update State with response from URL
             .then(
                 (response) => {

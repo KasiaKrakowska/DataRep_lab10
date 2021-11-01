@@ -1,5 +1,6 @@
 //import React library
 import React from "react";
+import axios from "axios";
 import { MovieItem } from "./movieItem";
 
 //start Create class - export used in order to use component elsewhere
@@ -49,7 +50,25 @@ export class Create extends React.Component {
     onSubmit(e) {
         e.preventDefault()//stops from calling submit multiple times
         alert("Movie: " + this.state.Title + " " + this.state.Year + " " + this.state.Poster);
+
+        //creating object
+        const newMovie = {
+            title: this.state.Title,
+            year: this.state.Year,
+            poster: this.state.Poster
+        }
+        //promise - send asynchronous HTTP requests to REST endpoints and perform CRUD operations
+        axios.post('http://localhost:4000/api/movies', newMovie)
+            //then returns an object as Promise
+            .then((res) => {
+                console.log(res);
+            })
+            //catch handles errors
+            .catch((err) => {
+                console.log(err);
+            });
     }//end onSubmit method
+
     //start render method
     render() {
         //returns div tag content with form and print to screen 
@@ -66,7 +85,7 @@ export class Create extends React.Component {
                             //onChange method - change movie title
                             onChange={this.onChangeMovieName}></input>
                     </div><br />
-                   
+
                     {/*input control - year*/}
                     <div className="form-group">
                         <label>Add Movie year: </label>
@@ -77,7 +96,7 @@ export class Create extends React.Component {
                             //onChange method - change movie year
                             onChange={this.onChangeMovieYear}></input>
                     </div><br />
-                   
+
                     {/*input control - poster*/}
                     <div className="form-group">
                         <label>Add Movie poster: </label>
