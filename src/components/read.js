@@ -23,7 +23,7 @@ export class Read extends React.Component {
             //fulfilled promise - when everything works it will update State with response from URL
             .then(
                 (response) => {
-                    this.setState({ movies: response.data.movies })
+                    this.setState({ movies: response.data })
                 }
             )
             //rejected promise - if there is an error it will print to console
