@@ -1,10 +1,10 @@
 //import React library
 import React from "react";
 import axios from "axios";
-import { MovieItem } from "./movieItem";
 
-//start Create class - export used in order to use component elsewhere
-export class Create extends React.Component {
+
+//start Edit class - export used in order to use component elsewhere
+export class Edit extends React.Component {
 
     //constructor method - called automatically when we created an object from that class
     constructor() {
@@ -21,6 +21,27 @@ export class Create extends React.Component {
             Poster: ""
         }//end state
     }//end constructor
+
+    //a lifecycle hook that gets invoked right after a React component has been mounted
+    componentDidMount() {
+        //logs id to the console
+        console.log(this.props.match.params.id);
+
+        //a Javascript library used to make HTTP requests from node. js or XMLHttpRequests from the browser
+        axios.get('http://localhost:4000/api/movies/' + this.props.match.params.id)
+            .then(response => {
+                this.setState({
+                    _id: response.data._id,
+                    Title: response.data.title,
+                    Year: response.data.year,
+                    Poster: response.data.poster
+                })
+            })
+            //callback function if something goes wrong
+            .catch((error) => {
+                console.log(error);
+            });
+    }//end componentDidMount
 
     //start onChangeMovieName method
     onChangeMovieName(e) {
@@ -55,18 +76,29 @@ export class Create extends React.Component {
         const newMovie = {
             title: this.state.Title,
             year: this.state.Year,
-            poster: this.state.Poster
-        }
-        //promise - send asynchronous HTTP requests to REST endpoints and perform CRUD operations
-        axios.post('http://localhost:4000/api/movies', newMovie)
-            //then returns an object as Promise
-            .then((res) => {
-                console.log(res);
+            poster: this.state.Poster,
+            _id: this.state._id
+        }//end const newMovie
+
+        //first parameter is the URL, and the 2nd is the HTTP request body
+        axios.put('http://localhost:4000/api/movies/' + this.state._id, newMovie)
+            .then(res => {
+                console.log(res.data)
             })
-            //catch handles errors
             .catch((err) => {
-                console.log(err);
+                console.log(err.data);
             });
+
+        //promise - send asynchronous HTTP requests to REST endpoints and perform CRUD operations
+        //axios.post('http://localhost:4000/api/movies', newMovie)
+        //then returns an object as Promise
+        //.then((res) => {
+        //console.log(res);
+        //})
+        //catch handles errors
+        //.catch((err) => {
+        //console.log(err);
+        // });
     }//end onSubmit method
 
     //start render method
@@ -112,13 +144,13 @@ export class Create extends React.Component {
                     {/*submit button*/}
                     <div className="form-group">
                         <input type="submit"
-                            value="Add Movie"
+                            value="Edit Movie"
                             className="btn btn-warning"></input>
                     </div>
                 </form>
             </div>
         )//end return
     };//end render method
-}//end Create class
+}//end Edit class
 
 

@@ -1,6 +1,7 @@
 //imports React libiraries and components
 import React from "react";
 import { Card } from "react-bootstrap";
+import { Link } from 'react-router-dom';
 
 //start MovieItem class - export used in order to use component elsewhere
 export class MovieItem extends React.Component {
@@ -20,6 +21,8 @@ export class MovieItem extends React.Component {
                             </footer>
                         </blockquote>
                     </Card.Body>
+                    {/*link to URL with button to edit movie*/}
+                    <Link to={"/edit/" + this.props.movie._id} className="btn btn-warning">Edit</Link>
                 </Card>
             </div>
         );

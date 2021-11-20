@@ -110,7 +110,20 @@ app.get('/api/movies', (req, res) => {
         MovieModel.findById(req.params.id, (err, data) => {
             res.json(data);
         })
-    })
+    })//end app.get
+
+    //routes the HTTP PUT requests to the specified path with the specified callback functions
+    app.put('/api/movies/:id', (req, res) => {
+        console.log("Update movie: " + req.params.id);
+        console.log(req.body);
+
+        //used to find a matching document using id, update it according to the update arg, 
+        //passing any options, and returns the found document (if any) to the callback
+        MovieModel.findByIdAndUpdate(req.params.id, req.body, { new: true },
+            (err, data) => {
+                res.send(data);
+            })//end MovieModel
+    })//end app.put
 
     //function define a route handler for POST requests using the BODY
     app.post('/api/movies', (req, res) => {
@@ -128,7 +141,7 @@ app.get('/api/movies', (req, res) => {
         })
         //response send back to the client from server
         res.send('Item added')
-    })
+    })//end app.post
 
     //This function sends JSON data in the response 
     // res.status(200).json({
