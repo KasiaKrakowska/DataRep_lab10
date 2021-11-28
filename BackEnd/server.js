@@ -125,6 +125,18 @@ app.get('/api/movies', (req, res) => {
             })//end MovieModel
     })//end app.put
 
+    //function is used to route the HTTP DELETE requests to the path which is specified as parameter with the callback functions being passed as parameter.
+    app.delete('/api/movies/:id', (req, res) => {
+        console.log("Delete Movie: " + req.params.id);
+
+        //function is used to find a matching document, removes it, and passing the found document (if any) to the callback.
+        MovieModel.findByIdAndDelete(req.params.id, (err, data) => {
+            //sends data on update
+            res.send(data);
+        })
+    })
+
+
     //function define a route handler for POST requests using the BODY
     app.post('/api/movies', (req, res) => {
         //This function sends movie data in the response

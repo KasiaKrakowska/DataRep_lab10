@@ -6,9 +6,9 @@ import { MovieItem } from "./movieItem";
 export class Movies extends React.Component {
     //start render method
     render() {
-        //acquires data from movies using arrow function
+        //acquires data from movies using arrow function //reloads after delete
         return this.props.movies.map((movie) => {
-            return <MovieItem movie={movie}></MovieItem>
+            return <MovieItem movie={movie} ReloadData={this.props.ReloadData}></MovieItem>
         })
     }//end render method
 }//end Movies class
