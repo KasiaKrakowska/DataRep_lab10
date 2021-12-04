@@ -11,6 +11,8 @@ const cors = require('cors');
 const bodyParser = require("body-parser");
 // include mongoose in a project
 const mongoose = require('mongoose');
+//add path used with express
+const path = require('path');
 
 
 //will enable the express server to respond to preflight requests. 
@@ -28,6 +30,13 @@ app.use(function (req, res, next) {
         "Origin, X-Requested-With, Content-Type, Accept");
     next();//It passes control to the next matching route
 });
+
+//configuration telling where to find files - build and static
+//express provides a set of features to develop web and mobile applications - can host the html and js files
+app.use(express.static(path.join(__dirname, '../build')));
+app.use('/static', express.static(path.join(__dirname, 'build//static')));
+
+
 
 //parse application/www-form-urlencoded
 //The extended option allows to choose between parsing the URL-encoded data 
@@ -162,7 +171,11 @@ app.get('/api/movies', (req, res) => {
     // });
 })//end app.get (define a route handler for GET requests to a given URL (JSON))
 
-
+// * - all other roots
+//send file back (index.html)
+app.get('*', (req, res)=>{
+    res.sendFile(path.join(__dirname + '/../build/index.html'));
+})
 //used to bind and listen the connections on the specified host and port
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
